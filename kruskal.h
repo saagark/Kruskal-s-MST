@@ -4,17 +4,23 @@
 #include "structures.h"
 
 class Kruskal{
+
 	public:
-		Subset* subset;
+
+		Kruskal(int v, int e);
+		void add(Edge e);
+		int find(int i);
+		void unionByRank(int x, int y);
+		void KruskalsAlgorithm();
+		bool operator()(Edge first, Edge second);
 		Graph* graph;
+		void print();
+		void printMST();
 
 	private:
+		Subset* subset;
 
-		Kruskal();
-		int find(int i);
-		void union(int x, int y);
-		void KruskalsAlgorithm();
-
+		Edge* MST;
 };
 
 #endif
