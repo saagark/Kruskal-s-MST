@@ -73,7 +73,8 @@ void Kruskal::KruskalsAlgorithm(){
 			return;
 		}
 	}
-	std::cout << edgeNum << " " << graph->V << std::endl;
+	//if it gets to here, no MST made
+	std::cout << "MST not found" << std::endl;
 
 }
 
