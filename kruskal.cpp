@@ -8,7 +8,7 @@ Kruskal::Kruskal(int v, int e){
 	MST = new Edge[v-1];
 
 	for(int i = 0; i < v; i++){
-		subset[i].parent = 0;
+		subset[i].parent = -1;
 	}
 }
 
@@ -17,7 +17,7 @@ void Kruskal::add(Edge e){
 }
 
 int Kruskal::find(int i){
-	if(subset[i].parent == 0)
+	if(subset[i].parent == -1)
 		return i;
 	else{
 		subset[i].parent = find(subset[i].parent);
@@ -47,17 +47,18 @@ bool Kruskal::operator()(Edge first, Edge second){
 
 void Kruskal::KruskalsAlgorithm(){
 	std::sort (graph->edges.begin(), graph->edges.end(), *this);//edgeNum < graph->getV()-1
-	print();
-	int index = 0;
-	for(int edgeNum = 0; index < graph->E; index++){
-		std::cout << "index is " << index << std::endl;
+
+	int weight = 0;
+	int edgeNum = 0;
+	for(int index = 0; index < graph->E; index++){
 		Edge next = graph->edges[index];
 		int origSource = next.source;
 		int origDest = next.dest;
 		int source = find(next.source);
 		int dest = find(next.dest);
-
+		//std::cout << "os" << origSource << " s" << source << " od" << origDest << " d" << dest << std::endl;
 		if(source != dest){
+			weight += next.weight;
 			MST[edgeNum] = next;
 			edgeNum++;
 			unionByRank(source, dest);
@@ -65,21 +66,21 @@ void Kruskal::KruskalsAlgorithm(){
 		} else {
 			std::cout << "Edge (" << origSource << ", " << origDest << ") creates cycle" << std::endl;
 		}
+
+		if(edgeNum == (graph->V -1)){
+			printMST();
+			std::cout << weight << std::endl;
+			return;
+		}
 	}
+	std::cout << edgeNum << " " << graph->V << std::endl;
 
 }
 
-
-
-void Kruskal::print(){
-	for (int i = 0; i < graph->E ; i++){
-		std::cout << graph->edges[i].source << ", " << graph->edges[i].dest << std::endl;
-	}
-}
 
 
 void Kruskal::printMST(){
 	for (int i = 0; i < graph->getV()-1 ; i++){
-		std::cout << MST[i].source << ", " << MST[i].dest << std::endl;
+		std::cout << MST[i].source << " " << MST[i].dest << std::endl;
 	}
 }

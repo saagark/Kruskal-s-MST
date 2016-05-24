@@ -37,7 +37,7 @@ struct Graph{
 
 struct Subset{
 	Subset(){
-		rank = -1;
+		rank = 0;
 	}
 	int parent, rank;
 };

@@ -25,6 +25,4 @@ int main(){
 	k->add(*f);
 
 	k->KruskalsAlgorithm();
-
-	k->printMST();
 }
