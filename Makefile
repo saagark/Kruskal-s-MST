@@ -1,7 +1,7 @@
 
 CXX=g++
 
-CXXFLAGS = -std=c++11 -Wall -Wextra -Wno-unused-parameter
+CXXFLAGS = -std=c++11 -Wall -Wextra
 
 all: prog2
 

@@ -2,7 +2,8 @@
 #include <algorithm>
 #include <iostream>
 
-
+//initialize graph, disjoint set, MST
+//set contents of disjoint set all to -1
 Kruskal::Kruskal(int v, int e){
 	graph = new Graph(v, e);
 	subset = new Subset[v+1];
@@ -13,12 +14,12 @@ Kruskal::Kruskal(int v, int e){
 	}
 }
 
-
+//add edge to vector
 void Kruskal::add(Edge e){
 	graph->edges.push_back(e);
 }
 
-
+//find using path compression
 int Kruskal::find(int i){
 	if(subset[i].parent == -1)
 		return i;
@@ -62,7 +63,6 @@ void Kruskal::KruskalsAlgorithm(){
 		int origDest = next.dest;
 		int source = find(next.source);
 		int dest = find(next.dest);
-		//std::cout << "os" << origSource << " s" << source << " od" << origDest << " d" << dest << std::endl;
 		if(source != dest){
 			weight += next.weight;
 			MST[edgeNum] = next;
@@ -78,22 +78,28 @@ void Kruskal::KruskalsAlgorithm(){
 			std::cout << weight << std::endl;
 			return;
 		}
+		//printSet();
 	}
 	//if it gets to here, no MST made
+	//check for corner case
+	if(graph->V == 1){
+		std::cout << weight << std::endl;
+		return;
+	}
 	std::cout << "MST not found" << std::endl;
 
 }
 
-
-
+//prints all edges in the MST
 void Kruskal::printMST(){
 	for (int i = 0; i < graph->getV()-1 ; i++){
 		std::cout << MST[i].source << " " << MST[i].dest << std::endl;
 	}
 }
 
+//prints out disjoint set (used for testing only)
 void Kruskal::printSet(){
-	for (int i = 1; i < graph->getV(); i++){
+	for (int i = 1; i <= graph->getV(); i++){
 		std::cout << subset[i].parent << "," << subset[i].rank << " " << std::endl;
 	}
 }

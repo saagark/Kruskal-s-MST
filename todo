@@ -1,0 +1,26 @@
+todo
+
+prog2
+-# fix disjoint set to store negative of rank in the root instead of seperate parent and rank
+-# corner case of only 1 vertex and no edges
+-# self edge?
+-# 5-6 test cases
+	-# no mst found
+	-# many vertices no edges
+	-# 1 vertex no edges
+	-# mst found
+
+hw3
+- union find
+
+pstat
+- hw
+- efficiency, consistency, sufficiency
+- likelihood
+- MVUE
+- confidence intervals
+- hypothesis testing
+
+cs154
+-hw 1 part 1
+-lab planning
