@@ -13,14 +13,13 @@ class Kruskal{
 		void unionByRank(int x, int y);
 		void KruskalsAlgorithm();
 		bool operator()(Edge first, Edge second);
-		Graph* graph;
 		void print();
 		void printMST();
 		void printSet();
 
 	private:
 		Subset* subset;
-
+		Graph* graph;
 		Edge* MST;
 };
 

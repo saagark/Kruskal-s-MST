@@ -2,19 +2,22 @@
 #include <algorithm>
 #include <iostream>
 
+
 Kruskal::Kruskal(int v, int e){
 	graph = new Graph(v, e);
-	subset = new Subset[v];
+	subset = new Subset[v+1];
 	MST = new Edge[v-1];
 
-	for(int i = 0; i < v; i++){
+	for(int i = 1; i <= v; i++){
 		subset[i].parent = -1;
 	}
 }
 
+
 void Kruskal::add(Edge e){
 	graph->edges.push_back(e);
 }
+
 
 int Kruskal::find(int i){
 	if(subset[i].parent == -1)
@@ -24,6 +27,7 @@ int Kruskal::find(int i){
 		return subset[i].parent;
 	}
 }
+
 
 void Kruskal::unionByRank(int x, int y){
 	int xSet = find(x);
@@ -40,13 +44,15 @@ void Kruskal::unionByRank(int x, int y){
     }
 }
 
+
+//compare function for vector sort
 bool Kruskal::operator()(Edge first, Edge second){
 	return first.weight < second.weight;
 }
 
 
 void Kruskal::KruskalsAlgorithm(){
-	std::sort (graph->edges.begin(), graph->edges.end(), *this);//edgeNum < graph->getV()-1
+	std::sort (graph->edges.begin(), graph->edges.end(), *this);
 
 	int weight = 0;
 	int edgeNum = 0;
@@ -83,5 +89,11 @@ void Kruskal::KruskalsAlgorithm(){
 void Kruskal::printMST(){
 	for (int i = 0; i < graph->getV()-1 ; i++){
 		std::cout << MST[i].source << " " << MST[i].dest << std::endl;
+	}
+}
+
+void Kruskal::printSet(){
+	for (int i = 1; i < graph->getV(); i++){
+		std::cout << subset[i].parent << "," << subset[i].rank << " " << std::endl;
 	}
 }
