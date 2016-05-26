@@ -6,11 +6,11 @@
 //set contents of disjoint set all to -1
 Kruskal::Kruskal(int v, int e){
 	graph = new Graph(v, e);
-	subset = new Subset[v+1];
+	subset = new int[v+1];
 	MST = new Edge[v-1];
 
 	for(int i = 1; i <= v; i++){
-		subset[i].parent = -1;
+		subset[i] = -1;
 	}
 }
 
@@ -21,11 +21,11 @@ void Kruskal::add(Edge e){
 
 //find using path compression
 int Kruskal::find(int i){
-	if(subset[i].parent == -1)
+	if(subset[i] < 0)
 		return i;
 	else{
-		subset[i].parent = find(subset[i].parent);
-		return subset[i].parent;
+		subset[i] = find(subset[i]);
+		return subset[i];
 	}
 }
 
@@ -34,14 +34,14 @@ void Kruskal::unionByRank(int x, int y){
 	int xSet = find(x);
 	int ySet = find(y);
 
-	if (subset[xSet].rank < subset[ySet].rank)
-        subset[xSet].parent = ySet;
-    else if (subset[xSet].rank > subset[ySet].rank)
-        subset[ySet].parent = xSet;
+	if (subset[ySet] < subset[xSet])
+        subset[xSet] = ySet;
+    else if (subset[ySet] > subset[xSet])
+        subset[ySet] = xSet;
     else
     {
-        subset[ySet].parent = xSet;
-        subset[xSet].rank++;
+        subset[ySet] = xSet;
+        subset[xSet]--;
     }
 }
 
@@ -97,9 +97,9 @@ void Kruskal::printMST(){
 	}
 }
 
-//prints out disjoint set (used for testing only)
-void Kruskal::printSet(){
-	for (int i = 1; i <= graph->getV(); i++){
-		std::cout << subset[i].parent << "," << subset[i].rank << " " << std::endl;
-	}
-}
+// //prints out disjoint set (used for testing only)
+// void Kruskal::printSet(){
+// 	for (int i = 1; i <= graph->getV(); i++){
+// 		std::cout << subset[i].parent << "," << subset[i].rank << " " << std::endl;
+// 	}
+// }

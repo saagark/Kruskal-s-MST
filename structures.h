@@ -35,11 +35,11 @@ struct Graph{
 	std::vector<Edge> edges;
 };
 
-struct Subset{
-	Subset(){
-		rank = 0;
-	}
-	int parent, rank;
-};
+// struct Subset{
+// 	Subset(){
+// 		rank = 0;
+// 	}
+// 	int parent, rank;
+// };
 
 #endif

@@ -18,7 +18,7 @@ class Kruskal{
 		void printSet();
 
 	private:
-		Subset* subset;
+		int* subset;
 		Graph* graph;
 		Edge* MST;
 };
