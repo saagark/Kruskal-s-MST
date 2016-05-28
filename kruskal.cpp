@@ -29,7 +29,7 @@ int Kruskal::find(int i){
 	}
 }
 
-
+//union by rank
 void Kruskal::unionByRank(int x, int y){
 	int xSet = find(x);
 	int ySet = find(y);
@@ -53,14 +53,19 @@ bool Kruskal::operator()(Edge first, Edge second){
 
 
 void Kruskal::KruskalsAlgorithm(){
-	std::sort (graph->edges.begin(), graph->edges.end(), *this);
+	std::sort (graph->edges.begin(), graph->edges.end(), *this); // step1: sort edges by weight
 
 	int weight = 0;
-	int edgeNum = 0;
+	int edgeNum = 0; // number of edges in MST
+	//check for corner case
+	if(graph->V == 1){
+		std::cout << weight << std::endl;
+		return;
+	}
 	for(int index = 0; index < graph->E; index++){
 		Edge next = graph->edges[index];
-		int origSource = next.source;
-		int origDest = next.dest;
+		int origSource = next.source; // used for print
+		int origDest = next.dest;     // used for print
 		int source = find(next.source);
 		int dest = find(next.dest);
 		if(source != dest){
@@ -73,19 +78,13 @@ void Kruskal::KruskalsAlgorithm(){
 			std::cout << "Edge (" << origSource << ", " << origDest << ") creates cycle" << std::endl;
 		}
 
-		if(edgeNum == (graph->V -1)){
+		if(edgeNum == (graph->V -1)){  // if number of edges in mst = vertices-1, mst is complete
 			printMST();
 			std::cout << weight << std::endl;
 			return;
 		}
-		//printSet();
 	}
 	//if it gets to here, no MST made
-	//check for corner case
-	if(graph->V == 1){
-		std::cout << weight << std::endl;
-		return;
-	}
 	std::cout << "MST not found" << std::endl;
 
 }
@@ -97,9 +96,3 @@ void Kruskal::printMST(){
 	}
 }
 
-// //prints out disjoint set (used for testing only)
-// void Kruskal::printSet(){
-// 	for (int i = 1; i <= graph->getV(); i++){
-// 		std::cout << subset[i].parent << "," << subset[i].rank << " " << std::endl;
-// 	}
-// }

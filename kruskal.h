@@ -13,9 +13,7 @@ class Kruskal{
 		void unionByRank(int x, int y);
 		void KruskalsAlgorithm();
 		bool operator()(Edge first, Edge second);
-		void print();
 		void printMST();
-		void printSet();
 
 	private:
 		int* subset;
